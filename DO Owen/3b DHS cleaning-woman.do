@@ -123,4 +123,4 @@ replace district = "SIDDHARTHNAGAR" if state == "UTTAR PRADESH" & district == "S
 
 tab state, gen(state_)
 
-save "${intermediate}DHS_womens", replace
+save "${intermediate}DHS_women", replace
