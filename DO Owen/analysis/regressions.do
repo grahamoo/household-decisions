@@ -227,7 +227,7 @@ estout btmarried btnever_married btsep_divorce btmarriage_age using "${tables}ta
 
   eststo clear
 *******************************************************************************
-***TABLE 7: Men's Preference for Husband-dominant Decision-making by Marital Status and Age
+***TABLE 7: Men's Preference for Husband-dominant Decision-making by Marital Status and Age***
 
 ***Panel A: Unmarried***
 use "${intermediate}for_analysis_men_3.dta", clear
@@ -320,7 +320,7 @@ estout $outcomes_iv_w_index   using "${tables}table7d.tex", ///
  
 
 ********************************************************************************
-***TABLE 8: Men's Preference for Husband-dominant Decision-making by Marital Status and Age (Cont'd)
+***TABLE 8: Men's Preference for Husband-dominant Decision-making by Marital Status and Age (Cont'd)***
 
 ***Panel A: Age less than or equal to 30 and unmarried***
 use "${intermediate}for_analysis_men_3.dta", clear
@@ -407,7 +407,7 @@ estout $outcomes_iv_w_index   using "${tables}table8d.tex", ///
   
 
 *********************************************************************************
-********** TABLE A1: SUMMARY STATISTICS
+***TABLE A1: Summary Statistics***
 
 ***Panel A: Men's preference for husband-dominant decision-making***
 use "${intermediate}for_analysis_men_3.dta", clear
@@ -627,7 +627,7 @@ esttab . using  "${tables}tableA1G.tex", ///
   replace
   
 *********************************************************************************
-******TABLE A2: Balance Checks
+***TABLE A2: Balance Checks***
 
 ***Panel A (1): Full men's sample***
 use "${intermediate}for_analysis_men_3.dta", clear
@@ -776,7 +776,7 @@ estout btd* using "${tables}tableA2B.tex", ///
   eststo clear
 
 ********************************************************************************
-******TABLE A3: Mechanism: Educational Attainment for All Women by Marital Status and Age
+***TABLE A3: Mechanism: Educational Attainment for All Women by Marital Status and Age***
 use "${intermediate}for_analysis_women_3.dta", clear
 egen med_age = median(age)
 assert med_age == 29
@@ -831,7 +831,7 @@ estout iv_educ1 iv_educ2 iv_educ3 iv_educ4 using "${tables}tableA3.tex", ///
   eststo clear
 
 ********************************************************************************
-******TABLE A4: Robustness
+***TABLE A4: Robustness***
 
 ***Panel A: Full men's sample***
 use "${intermediate}for_analysis_men_3.dta", clear
