@@ -101,11 +101,15 @@ la var male_decision_z "household decision-making index"
 
 
 ***State and district cleaning***
-*drop states without election data
+*Drop territories that are not in election data
+/*Note: The following areas are union territories that do not have state-level
+legislative assemblies. Individuals in these territories account for <1% of total 
+observations.*/
 drop if state == "DADRA AND NAGAR HAVELI" | state == "DAMAN AND DIU" | state == "ANDAMAN AND NICOBAR ISLANDS" ///
-| state == "TELANGANA" | state == "LAKSHADWEEP" | state == "CHANDIGARH"
+| state == "LAKSHADWEEP" | state == "CHANDIGARH"
 
 *clean state and district names
+replace state = "ANDHRA PRADESH" if state == "TELANGANA"
 replace state = "JAMMU & KASHMIR" if state == "JAMMU AND KASHMIR"
 
 replace district = "BARPETA" if state == "ASSAM" & district == "BAKSA"

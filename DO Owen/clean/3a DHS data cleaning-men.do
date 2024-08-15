@@ -30,12 +30,8 @@ gen semi_literate = (literacy == 1)
 la var semi_literate "respondent is able to read only parts of sentence"
 
 assert !mi(mv157) & !mi(mv158) & !mi(mv159)
-gen news_read = (mv157 != 0)
-label var news_read "respondent reads newspaper or magazines"
-gen radio_listen = (mv158 != 0)
-label var radio_listen "respondent listens to radio"
-gen tv_watch = (mv159 != 0)
-label var tv_watch "respondent watches tv"
+gen daily_media = mv157 == 3 | mv158 == 3 | mv159 == 3
+la var daily_media "respondent reads newspaper, watches tv, or listents to radion daily"
 
 rename mv012 age
 la var age "respondent's age in years"
@@ -87,11 +83,15 @@ la var male_decision_z "household decision-making index"
 
 
 ***State and district cleaning***
-*Drop states that are not in election data
+*Drop territories that are not in election data
+/*Note: The following areas are union territories that do not have state-level
+legislative assemblies. Individuals in these territories account for <1% of total 
+observations.*/
 drop if state == "DADRA & NAGAR HAVELI" | state == "DAMAN & DIU" | state == "ANDAMAN & NICOBAR ISLANDS" ///
-| state == "TELANGANA" | state == "LAKSHADWEEP" | state == "CHANDIGARH"
+| state == "LAKSHADWEEP" | state == "CHANDIGARH"
 
 *clean state and district names
+replace state = "ANDHRA PRADESH" if state == "TELANGANA"
 replace state = "JAMMU & KASHMIR" if state == "JAMMU AND KASHMIR"
 
 replace district = "BARPETA" if state == "ASSAM" & district == "BAKSA"
