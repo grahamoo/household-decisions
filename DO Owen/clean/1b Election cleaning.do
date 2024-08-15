@@ -29,6 +29,7 @@ drop if ac == "SANGHA" & state == "SIKKIM"
 *look at SIKKIM acs where candidates are added in multiple districts
 
 ***Fix district names to match DHS***
+replace district = "MAHBUBNAGAR" if state == "ANDHRA PRADESH" & district == "MAHABUBNAGAR"
 replace district = "Y.S.R." if state == "ANDHRA PRADESH" & district == "KADAPA"
 replace district = "SRI POTTI SRIRAMULU NELLORE" if state == "ANDHRA PRADESH" & district == "NELLORE"
 
