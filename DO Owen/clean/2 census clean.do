@@ -76,8 +76,6 @@ replace state = "PUDUCHERRY" if state_code == "34"
 *rename districts to match DHS
 drop if state == "CHANDIGARH"
 
-replace district = "MAHABUBNAGAR" if state == "ANDHRA PRADESH" & district == "MAHBUBNAGAR"
-
 replace district = "PAPUMPARE" if state == "ARUNACHAL PRADESH" & district == "PAPUM PARE"
 
 replace district = "BANASKANTHA" if state == "GUJARAT" & district == "BANAS KANTHA"
