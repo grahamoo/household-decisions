@@ -110,4 +110,5 @@ replace district = "SIDDHARTHNAGAR" if state == "UTTAR PRADESH" & district == "S
 *create state dummies
 tab state, gen(state_)
 
+sort mcaseid //stable sort
 save "${intermediate}DHS_men.dta", replace

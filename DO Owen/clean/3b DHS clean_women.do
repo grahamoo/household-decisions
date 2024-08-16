@@ -1,5 +1,5 @@
 
-use v024 sdistri v130 v155 v157 v158 v159 v012 v133 v501 s116 v201 v106 ///
+use caseid v024 sdistri v130 v155 v157 v158 v159 v012 v133 v501 s116 v201 v106 ///
 v714 v745a v745b v213 s927 v743a v743b v743d v632 v739 using "${raw}DHS\Womens DHS\IAIR74FL.dta", clear
 
 **clean and generate individual covariates***
@@ -127,4 +127,5 @@ replace district = "SIDDHARTHNAGAR" if state == "UTTAR PRADESH" & district == "S
 
 tab state, gen(state_)
 
+sort caseid //stable sort
 save "${intermediate}DHS_women", replace
