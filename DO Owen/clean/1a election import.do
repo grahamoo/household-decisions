@@ -102,7 +102,7 @@ save `LA_2013'
 
 *run do file that imports DEC 2013 elections and merges in district names
 *Note: The raw Dec 2013 election data does not contain district names
-do "${dofiles}import dec 2013 elections"
+do "${dofiles}clean/import dec 2013 elections"
 
 import excel using "${raw}ECI/MAY 2014 LA election", firstrow sheet("Candidates") clear
 
