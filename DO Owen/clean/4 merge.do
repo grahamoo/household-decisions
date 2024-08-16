@@ -17,6 +17,7 @@ assert _merge_census != 1
 drop if _merge_census == 2
 drop state_code
 
+sort mcaseid
 save "${intermediate}for_analysis_men_`h'.dta", replace
 }
 
@@ -42,5 +43,6 @@ assert _merge_census != 1
 drop if _merge_census == 2
 drop state_code
 
+sort caseid
 save "${intermediate}for_analysis_women_`h'.dta", replace
 }
