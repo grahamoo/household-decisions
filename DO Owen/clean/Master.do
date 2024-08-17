@@ -17,8 +17,8 @@ local clean_elections		1
 local clean_census			1
 local clean_dhs				1
 local merge					1
-local tables				0
-local figures				0
+local tables				1
+local figures				1
 
 ********************************************************************************
 ***Clean election data***
