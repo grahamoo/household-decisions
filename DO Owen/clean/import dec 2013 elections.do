@@ -1,7 +1,5 @@
-cd "C:\Users\17819\Dropbox\capstone\Data Owen\Elections\ECI excel files"
-
-
-*This file matches the district names from 2008 elections to the acs with missing district names from the December 2013 elections
+/*Purpose: Match the district names from 2008 elections to the acs with missing 
+district names from the December 2013 elections*/
 
 *import 2008 elections
 import excel using "${raw}ECI/AE_2008", firstrow sheet("cand_wise") clear
@@ -57,6 +55,7 @@ drop _merge
 tempfile t_DEC2013
 save `t_DEC2013'
 
+*merge district names into Dec 2013 elections
 use `t_DEC2013'
 merge m:1 ST_NAME AC_NO using `t_2008' 
 

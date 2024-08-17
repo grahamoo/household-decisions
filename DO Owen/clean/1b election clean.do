@@ -1,3 +1,7 @@
+/*Purpose: Clean appended ECI election data: remove invalid elections.
+Fix state and district names to match naming conventions in DHS data.
+Define key election characteristics.
+*/
 
 use "${intermediate}raw_elections.dta", clear
 
@@ -22,11 +26,10 @@ order state district ac year CAND_NAME
 *drop data without voting and candidate information
 drop if CAND_SEX == "NULL" //11 obs
 drop if cand_vote == . | cand_vote == 0 //19 obs for elections that are missing all vote count info
-*TO DO: look at ac="thanjavur" year="2016", and ac="ARAVAKURICHI" year="2016"
 
 *drop seat reserved for Buddhist monastic society
 drop if ac == "SANGHA" & state == "SIKKIM"
-*look at SIKKIM acs where candidates are added in multiple districts
+
 
 ***Fix district names to match DHS***
 replace district = "MAHBUBNAGAR" if state == "ANDHRA PRADESH" & district == "MAHABUBNAGAR"
@@ -202,6 +205,7 @@ replace district = "PURULIYA" if state == "WEST BENGAL" & district == "PURULIA"
 replace district = "SOUTH TWENTY FOUR PARGANAS" if state == "WEST BENGAL" ///
 & district == "SOUTH 24-PARGANAS"
 
+***Create key election variables***
 *count female candidates per election
 gen female = (CAND_SEX == "F")
 bysort state district ac year month: egen x = sum(female)
@@ -226,7 +230,7 @@ assert win_f <= 1
 bysort state district year: egen totseats_dist = sum(rank == 1)
 label var totseats_dist "total number of seats for district in election year"
 
-*generate margin of victory
+*generate margin of victory by election
 bysort state district ac year month: egen winner_vote = max(cand_vote)
 label var winner_vote "no. of votes for winner"
 
@@ -242,7 +246,6 @@ tempfile main
 save `main'
 
 ***Save file for various bandwidths when defining "close" elections***
-*Note: //TO DO: CITE BANDWIDTHS USED IN OTHER PAPERS
 foreach h of numlist 2(0.5)4 {
 use `main', clear
 

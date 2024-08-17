@@ -1,3 +1,4 @@
+*Purpose: Create all figures for paper
 
 ********************************************************************************
 ***Figure 1: First Stage Illustration***

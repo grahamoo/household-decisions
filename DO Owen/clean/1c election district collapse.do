@@ -1,3 +1,4 @@
+*Purpose: Collapse cleaned election files to district-level
 
 foreach h of numlist 2(0.5)4 {
 	
@@ -9,7 +10,7 @@ on different 5 year cycles. All states have one election between
 2010-2014*/
 keep if year >= 2010 & year <= 2014
 
-*assert that each state is only represented once
+*assert that each state is only represented in one election year
 bysort state (year): gen diff_year = year[1] != year[_N]
 assert diff_year == 0
 drop diff_year
@@ -68,8 +69,9 @@ label var total_close_winf "number of close male-female elections won by females
 gen frac_close_winf = total_close_winf / totseats_dist
 label var frac_close_winf "fraction of elections that were close mf won by f"
 
-*drop individual variables 
-drop CAND_NAME ac TOT_ELECTORS TOT_VOTERS POLL_PERCENT AC_TYPE CAND_SEX CAND_CATEGORY CAND_AGE PARTYABBRE cand_vote rank female ff mm mf win_f winner_vote runnerup_vote abs_marg marg close close_mf close_mf_winf duplic AC_NO
+*drop ac-specific and candidate-specific variables 
+drop CAND_NAME ac TOT_ELECTORS TOT_VOTERS POLL_PERCENT AC_TYPE CAND_SEX CAND_CATEGORY ///
+CAND_AGE PARTYABBRE cand_vote rank female ff mm mf win_f winner_vote runnerup_vote abs_marg marg close close_mf close_mf_winf duplic AC_NO
 
 *keep one observation per district
 duplicates drop state district, force
@@ -95,7 +97,7 @@ gen dist_had_mf = 0
 replace dist_had_mf = 1 if _merge == 3
 drop _merge
 
-*generate dummies for margins
+*generate dummies for the existence of a male-female election
 gen dum1 = 0
 replace dum1 = 1 if marg1 != .
 gen dum2 = 0
@@ -119,6 +121,7 @@ replace dum10 = 1 if marg10 != .
 
 local varlist "marg1 marg2 marg3 marg4 marg5 marg6 marg7 marg8 marg9 marg10"
 
+*create squared and cubed versions of margins
 foreach var of local varlist {
 	replace `var' = 0 if `var' == .
 	gen `var'2 = `var'^2

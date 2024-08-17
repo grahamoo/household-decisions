@@ -1,4 +1,4 @@
-
+*Purpose: Clean Men's 2015-2016 DHS sample. Define individual covariates and outcome variables
 use "${raw}DHS\Mens DHS\IAMR74FL.DTA", clear
 
 
@@ -58,14 +58,14 @@ replace respondent_obc = . if mi(sm118)
 label var respondent_obc "respondent belongs to other backwards caste"
 
 
-***Code dependent variables***
+***Clean and generate outcome variables***
 rename sm701e fertility_decisions
 rename sm701a largehousehold_decisions
 rename sm701d wifesincome_decisions
 rename sm701b dailyhousehold_decisions
 rename sm701c visitrelative_decisions
 
-*turn dependent variables into indicators that take on 1 if the respondent responds with "Husband"
+*create indicators for household decisions that take on 1 if the respondent responds with "Husband"
 foreach var in fertility_decisions largehousehold_decisions wifesincome_decisions ///
 dailyhousehold_decisions visitrelative_decisions {
 	replace `var' = 0 if `var' != 1 & !mi(`var')
@@ -111,4 +111,5 @@ replace district = "SIDDHARTHNAGAR" if state == "UTTAR PRADESH" & district == "S
 tab state, gen(state_)
 
 sort mcaseid //stable sort
+
 save "${intermediate}DHS_men.dta", replace

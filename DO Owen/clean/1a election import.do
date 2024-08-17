@@ -1,9 +1,8 @@
-/*Purpose: Append all raw state election files. Retain first and second place
-candidate for each assembly constituency*/
+/*Purpose: Import and append all raw ECI state election files. 
+Retain first and second place candidate for each assembly constituency.*/
 
 
 ***Import candidate files from each election file***
-
 import excel using "${raw}ECI/AE_2008", firstrow sheet("cand_wise") clear
 drop if POSITION != 1 & POSITION != 2
 tempfile AE_2008
@@ -26,7 +25,7 @@ save `AE_2011'
 
 import excel using "${raw}ECI/AE2012_8913", firstrow sheet("cand_wise") clear
 
-*Assign candidates to one district for ACs elections listed in districts districts based on district-ac match in wikipedia
+*Assign candidates to one district for elections listed in multiple districts based on district-ac match in wikipedia
 replace POSITION = 2 if ST_NAME == "Uttar Pradesh" & DIST_NAME == "Bheem Nagar" ///
 & CAND_NAME == "AQEEL UR REHMAN KHAN"
 drop if ST_NAME == "Uttar Pradesh" & DIST_NAME == "Moradabad" & AC_NAME == "Asmoli"
@@ -106,7 +105,7 @@ do "${dofiles}clean/import dec 2013 elections"
 
 import excel using "${raw}ECI/MAY 2014 LA election", firstrow sheet("Candidates") clear
 
-*Assign candidates to one district for ACs elections listed in districts districts based on district-ac match in wikipedia
+*Assign candidates to one district for elections listed in multiple districts based on district-ac match in wikipedia
 replace POSITION = 1 if ST_NAME == "Sikkim" & DIST_NAME == "NORTH DISTRICT" ///
 & CAND_NAME == "UGEN NEDUP BHUTIA"
 replace POSITION = 2 if ST_NAME == "Sikkim" & DIST_NAME == "NORTH DISTRICT" ///
@@ -134,7 +133,7 @@ save `OCT_2014'
 
 import excel using "${raw}ECI/DECEMBER 2014 LA election", firstrow sheet("Candidates") clear
 
-*Assign candidates to one district for ACs elections listed in districts districts based on district-ac match in wikipedia
+*Assign candidates to one district for elections listed in multiple districts based on district-ac match in wikipedia
 replace POSITION = 1 if ST_NAME == "Jammu & Kashmir" & DIST_NAME == "KISHTWAR" ///
 & CAND_NAME == "NEELAM KUMAR LANGEH"
 replace POSITION = 2 if ST_NAME == "Jammu & Kashmir" & DIST_NAME == "KISHTWAR" ///
@@ -317,7 +316,7 @@ tempfile electors_2016
 save `electors_2016'
 
 
-***Merge candidate to elector files***
+***Merge candidate files to elector files***
 use `electors_2008', clear
 merge 1:m ST_CODE AC_NO using `AE_2008'
 drop if _merge==1
@@ -447,7 +446,7 @@ tempfile t_2016
 save `t_2016'
 
 
-*append tempfiles
+*append all elections
 use `t_2008', clear
 append using `t_2009', force
 append using `t_2010', force

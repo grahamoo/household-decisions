@@ -1,13 +1,4 @@
-
-**This .do file was used to create the output tables for an individual research project
-**Specifically, the objective of this project was to evaluate the effects of female political representation in Indian state legislature on male constituents' opinions about who, between husband and wife, should have greater say over various household decisions. In order to address possible endogeneity, the project exploits an instrumental variable strategy used by Bhalotra and Clots-Figueras (2014) and Clots-Figueras (2011), which utilizes close elections between male and female candidates. As done in these papers, the fraction of seats won by women in a given district is instrumented by the fraction of close elections between opposite-gender winners and runners-up that are won by women. This helps to identify the exogenous occurrence of female leadership in state legislature.
-**The findings of this project reveal that exposure to female political representation leads to a significant decrease in the likelihood men express that husbands should have greater say of how many children to have and large household purchases. There is a significant increase in the likelihood men express that large household purchases should be decided upon equally between husband and wife. The effect is found to be heterogenous across male age cohorts, where younger men drive the change in attitudes.
-**The .do file creates tables for the total male sample and the male samples by age quartile.
-
-
-
-
-
+*Purpose: Create all tables for paper
 
 *generate globals used in regression
 global margin1 dum1-dum10 marg1 marg2 marg3 marg4 marg5 marg6 marg7 marg8 marg9 marg10
@@ -16,14 +7,17 @@ marg10 marg12 marg22 marg32 marg42 marg52 marg62 marg72 marg82 marg92 marg102
 global margin2_interact i.group#(i.dum1 i.dum2 i.dum3 i.dum4 i.dum5 i.dum6 i.dum7 i.dum8 ///
 i.dum9 i.dum10 c.marg1 c.marg2 c.marg3 c.marg4 c.marg5 c.marg6 c.marg7 c.marg8 c.marg9 ///
 c.marg10 c.marg12 c.marg22 c.marg32 c.marg42 c.marg52 c.marg62 c.marg72 c.marg82 c.marg92 c.marg102)
+
 global individual_controls age literate years_educ hindu muslim christian sikh ///
 respondent_sc_st respondent_obc
 global individual_controls_interact i.group#(c.age i.literate c.years_educ ///
 i.hindu i.muslim i.christian i.sikh i.respondent_sc_st i.respondent_obc)
 global individual_controls_noeduc age hindu muslim christian sikh respondent_sc_st respondent_obc //removes years of education and literacy status
+
 global dist_controls f_perc f_literate m_literate sc_st_rate
 global dist_controls_interact i.group#(c.f_perc c.f_literate c.m_literate ///
 c.sc_st_rate)
+
 global outcomes fertility_decisions largehousehold_decisions wifesincome_decisions ///
 dailyhousehold_decisions visitrelative_decisions
 global outcomes_w_index  male_decision_z fertility_decisions largehousehold_decisions ///

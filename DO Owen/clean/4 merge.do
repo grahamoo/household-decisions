@@ -1,3 +1,4 @@
+*Merge cleaned election and Census data into cleaned men's and women's DHS data
 
 ***Mens sample***
 foreach h of numlist 2(0.5)4 {
@@ -17,7 +18,7 @@ assert _merge_census != 1
 drop if _merge_census == 2
 drop state_code
 
-sort mcaseid
+sort mcaseid //stable sort
 save "${intermediate}for_analysis_men_`h'.dta", replace
 }
 
@@ -34,8 +35,6 @@ rename _merge _merge_elections
 assert _merge_elections != 1
 drop if _merge_elections == 2
 
-
-
 *merge census data
 merge m:1 state district using "${intermediate}clean_census.dta"
 rename _merge _merge_census
@@ -43,6 +42,6 @@ assert _merge_census != 1
 drop if _merge_census == 2
 drop state_code
 
-sort caseid
+sort caseid //stable sort
 save "${intermediate}for_analysis_women_`h'.dta", replace
 }

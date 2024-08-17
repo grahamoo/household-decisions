@@ -1,3 +1,4 @@
+*Purpose: Clean Women's 2015-2016 DHS sample. Define individual covariates and outcome variables
 
 use caseid v024 sdistri v130 v155 v157 v158 v159 v012 v133 v501 s116 v201 v106 ///
 v714 v745a v745b v213 s927 v743a v743b v743d v632 v739 using "${raw}DHS\Womens DHS\IAIR74FL.dta", clear
@@ -74,14 +75,14 @@ la var land_ownership "respondent owns land alone or jointly"
 ren s927 has_money
 la var has_money "respondent has money that they alone can decide what to do with"
 
-*rename dependent variables
+**Clean and generate outcome variables***
 rename v743a healthcare_decisions
 rename v632 contraceptive_decisions
 rename v743b largehousehold_decisions
 rename v739 wifesincome_decisions
 rename v743d visitrelative_decisions
 
-*turn dependent variables into indicators that take on 1 if the respondent responds with "Husband"
+*create indicators for household decisions that take on 1 if the respondent responds with "Husband"
 replace contraceptive_decisions = 0 if contraceptive_decisions != 2 & !mi(contraceptive_decisions)
 replace contraceptive_decisions = 1 if contraceptive_decisions == 2
 
@@ -125,6 +126,7 @@ replace district = "PUDUCHERRY" if state == "PUDUCHERRY" & (district == "MAHE" |
 
 replace district = "SIDDHARTHNAGAR" if state == "UTTAR PRADESH" & district == "SIDDHARTH NAGAR"
 
+*generate state dummies
 tab state, gen(state_)
 
 sort caseid //stable sort
