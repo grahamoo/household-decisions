@@ -11,14 +11,27 @@
 
 *generate globals used in regression
 global margin1 dum1-dum10 marg1 marg2 marg3 marg4 marg5 marg6 marg7 marg8 marg9 marg10
-global margin2 dum1-dum10 marg1 marg2 marg3 marg4 marg5 marg6 marg7 marg8 marg9 marg10 marg12 marg22 marg32 marg42 marg52 marg62 marg72 marg82 marg92 marg102
-global individual_controls age literate years_educ hindu muslim christian sikh respondent_sc_st respondent_obc
+global margin2 dum1-dum10 marg1 marg2 marg3 marg4 marg5 marg6 marg7 marg8 marg9 ///
+marg10 marg12 marg22 marg32 marg42 marg52 marg62 marg72 marg82 marg92 marg102
+global margin2_interact i.group#(i.dum1 i.dum2 i.dum3 i.dum4 i.dum5 i.dum6 i.dum7 i.dum8 ///
+i.dum9 i.dum10 c.marg1 c.marg2 c.marg3 c.marg4 c.marg5 c.marg6 c.marg7 c.marg8 c.marg9 ///
+c.marg10 c.marg12 c.marg22 c.marg32 c.marg42 c.marg52 c.marg62 c.marg72 c.marg82 c.marg92 c.marg102)
+global individual_controls age literate years_educ hindu muslim christian sikh ///
+respondent_sc_st respondent_obc
+global individual_controls_interact i.group#(c.age i.literate c.years_educ ///
+i.hindu i.muslim i.christian i.sikh i.respondent_sc_st i.respondent_obc)
 global individual_controls_noeduc age hindu muslim christian sikh respondent_sc_st respondent_obc //removes years of education and literacy status
 global dist_controls f_perc f_literate m_literate sc_st_rate
-global outcomes fertility_decisions largehousehold_decisions wifesincome_decisions dailyhousehold_decisions visitrelative_decisions
-global outcomes_w_index  male_decision_z fertility_decisions largehousehold_decisions wifesincome_decisions dailyhousehold_decisions visitrelative_decisions
-global outcomes_iv ivfertility_decisions ivlargehousehold_decisions ivwifesincome_decisions ivdailyhousehold_decisions ivvisitrelative_decisions
-global outcomes_iv_w_index ivmale_decision_z ivfertility_decisions ivlargehousehold_decisions ivwifesincome_decisions ivdailyhousehold_decisions ivvisitrelative_decisions
+global dist_controls_interact i.group#(c.f_perc c.f_literate c.m_literate ///
+c.sc_st_rate)
+global outcomes fertility_decisions largehousehold_decisions wifesincome_decisions ///
+dailyhousehold_decisions visitrelative_decisions
+global outcomes_w_index  male_decision_z fertility_decisions largehousehold_decisions ///
+wifesincome_decisions dailyhousehold_decisions visitrelative_decisions
+global outcomes_iv ivfertility_decisions ivlargehousehold_decisions ivwifesincome_decisions ///
+ivdailyhousehold_decisions ivvisitrelative_decisions
+global outcomes_iv_w_index ivmale_decision_z ivfertility_decisions ivlargehousehold_decisions ///
+ivwifesincome_decisions ivdailyhousehold_decisions ivvisitrelative_decisions
 global se "cluster(district)"
 global slvl "starlevels(* 0.10 ** 0.05 *** 0.01)"
 
@@ -226,6 +239,7 @@ estout btmarried btnever_married btsep_divorce btmarriage_age using "${tables}ta
 			layout(@ @)) $slvl
 
   eststo clear
+  
 *******************************************************************************
 ***TABLE 7: Men's Preference for Husband-dominant Decision-making by Marital Status and Age***
 
@@ -241,7 +255,7 @@ qui estadd scalar outcome_mean = r(mean)
 eststo iv`var'
 }
 
-estout $outcomes_iv_w_index  using "${tables}table7a.tex", ///
+estout $outcomes_iv_w_index  using "${tables}table7A.tex", ///
 			replace style(tex) collabels(, none) label varlabels(frac_f "Fraction of female leaders") cells(b(star fmt(%9.3f)) se(par))  ///
 			keep(frac_f) mlabels(, none) stats(N outcome_mean, fmt(%9.0gc %9.3fc) ///
 			labels("\hspace{0.5 cm} Observations" "\hspace{0.5 cm} Outcome mean") ///
@@ -254,7 +268,6 @@ estout $outcomes_iv_w_index  using "${tables}table7a.tex", ///
 use "${intermediate}for_analysis_men_3.dta", clear
 
 keep if married == 1
-
 foreach var in $outcomes_w_index {
 	ivreg2 `var' (frac_f = frac_close_winf) frac_close $margin2 $individual_controls state_*  $dist_controls, $se
 qui: sum `var' if e(sample) == 1
@@ -262,7 +275,7 @@ qui estadd scalar outcome_mean = r(mean)
 eststo iv`var'
 }
 
-estout $outcomes_iv_w_index  using "${tables}table7b.tex", ///
+estout $outcomes_iv_w_index  using "${tables}table7B.tex", ///
 			replace style(tex) collabels(, none) label varlabels(frac_f "Fraction of female leaders") cells(b(star fmt(%9.3f)) se(par))  ///
 			keep(frac_f) mlabels(, none) stats(N outcome_mean, fmt(%9.0gc %9.3fc) ///
 			labels("\hspace{0.5 cm} Observations" "\hspace{0.5 cm} Outcome mean") ///
@@ -271,7 +284,7 @@ estout $outcomes_iv_w_index  using "${tables}table7b.tex", ///
   eststo clear
 
   
-***Panel C: Age less than or equal to 30***
+***Panel C: Age less than or equal to 30*** 
 use "${intermediate}for_analysis_men_3.dta", clear
 keep if !mi(male_decision_z)
 egen age_med = median(age)
@@ -288,7 +301,7 @@ qui estadd scalar outcome_mean = r(mean)
 eststo iv`var'
 }
 
-estout $outcomes_iv_w_index  using "${tables}table7c.tex", ///
+estout $outcomes_iv_w_index  using "${tables}table7C.tex", ///
 			replace style(tex) collabels(, none) label varlabels(frac_f "Fraction of female leaders") cells(b(star fmt(%9.3f)) se(par))  ///
 			keep(frac_f) mlabels(, none) stats(N outcome_mean, fmt(%9.0gc %9.3fc) ///
 			labels("\hspace{0.5 cm} Observations" "\hspace{0.5 cm} Outcome mean") ///
@@ -301,16 +314,14 @@ estout $outcomes_iv_w_index  using "${tables}table7c.tex", ///
 use "${intermediate}for_analysis_men_3.dta", clear
 
 keep if age > 30
-
-local varlist fertility_decisions largehousehold_decisions wifesincome_decisions dailyhousehold_decisions visitrelative_decisions male_decision_z
-foreach var of local varlist {
+foreach var in $outcomes_w_index {
 	ivreg2 `var' (frac_f = frac_close_winf) frac_close $margin2 $individual_controls state_*  $dist_controls, $se
 qui: sum `var' if e(sample) == 1
 qui estadd scalar outcome_mean = r(mean)
 eststo iv`var'
 }
 
-estout $outcomes_iv_w_index   using "${tables}table7d.tex", ///
+estout $outcomes_iv_w_index   using "${tables}table7D.tex", ///
 			replace style(tex) collabels(, none) label varlabels(frac_f "Fraction of female leaders") cells(b(star fmt(%9.3f)) se(par))  ///
 			keep(frac_f) mlabels(, none) stats(N outcome_mean, fmt(%9.0gc %9.3fc) ///
 			labels("\hspace{0.5 cm} Observations" "\hspace{0.5 cm} Outcome mean") ///
@@ -318,6 +329,40 @@ estout $outcomes_iv_w_index   using "${tables}table7d.tex", ///
 
   eststo clear
  
+ 
+***Comparison of coefficients***
+
+foreach group in 1 2 {
+use "${intermediate}for_analysis_men_3.dta", clear
+
+if `group' == 1{
+	gen group = married
+}
+
+if `group' == 2 {
+	gen group = age > 30
+}
+
+gen cons = 1
+
+foreach var in $outcomes_w_index {
+ivreg2 `var' (c.frac_f#i.group = c.frac_close_winf#i.group) c.cons#i.group ///
+c.frac_close#i.group $margin2_interact $individual_controls_interact i.state_*#i.group  $dist_controls_interact, nocons $se
+test 1.group#c.frac_f = 0.group#c.frac_f
+mat ec`group'_`var'=(.)
+			mat ec`group'_`var'[1,1]=r(p)
+}
+}
+		
+		
+		matrix eqcoeff=(ec1_male_decision_z) , (ec1_fertility_decisions) ,  (ec1_largehousehold_decisions) , (ec1_wifesincome_decisions) , (ec1_dailyhousehold_decisions)  , (ec1_visitrelative_decisions) \ (ec2_male_decision_z) , (ec2_fertility_decisions) ,  (ec2_largehousehold_decisions) , (ec2_wifesincome_decisions) , (ec2_dailyhousehold_decisions)  , (ec2_visitrelative_decisions)
+mat rownames eqcoeff = "" "" //titles will be added in overleaf
+estout matrix(eqcoeff, fmt(%9.3f)) using "${tables}table7E.tex", replace title("") style(tex) ///
+	collabels(, none) mlabels(, none) nolabel ///
+
+
+estimates clear
+
 
 ********************************************************************************
 ***TABLE 8: Men's Preference for Husband-dominant Decision-making by Marital Status and Age (Cont'd)***
@@ -334,7 +379,7 @@ qui estadd scalar outcome_mean = r(mean)
 eststo iv`var'
 }
 
-estout $outcomes_iv_w_index  using "${tables}table8a.tex", ///
+estout $outcomes_iv_w_index  using "${tables}table8A.tex", ///
 			replace style(tex) collabels(, none) label varlabels(frac_f "Fraction of female leaders") cells(b(star fmt(%9.3f)) se(par))  ///
 			keep(frac_f) mlabels(, none) stats(N outcome_mean, fmt(%9.0gc %9.3fc) ///
 			labels("\hspace{0.5 cm} Observations" "\hspace{0.5 cm} Outcome mean") ///
@@ -355,7 +400,7 @@ qui estadd scalar outcome_mean = r(mean)
 eststo iv`var'
 }
 
-estout $outcomes_iv_w_index   using "${tables}table8b.tex", ///
+estout $outcomes_iv_w_index   using "${tables}table8B.tex", ///
 			replace style(tex) collabels(, none) label varlabels(frac_f "Fraction of female leaders") cells(b(star fmt(%9.3f)) se(par))  ///
 			keep(frac_f) mlabels(, none) stats(N outcome_mean, fmt(%9.0gc %9.3fc) ///
 			labels("\hspace{0.5 cm} Observations" "\hspace{0.5 cm} Outcome mean") ///
@@ -376,7 +421,7 @@ qui estadd scalar outcome_mean = r(mean)
 eststo iv`var'
 }
 
-estout $outcomes_iv_w_index   using "${tables}table8c.tex", ///
+estout $outcomes_iv_w_index   using "${tables}table8C.tex", ///
 			replace style(tex) collabels(, none) label varlabels(frac_f "Fraction of female leaders") cells(b(star fmt(%9.3f)) se(par))  ///
 			keep(frac_f) mlabels(, none) stats(N outcome_mean, fmt(%9.0gc %9.3fc) ///
 			labels("\hspace{0.5 cm} Observations" "\hspace{0.5 cm} Outcome mean") ///
@@ -397,14 +442,59 @@ qui estadd scalar outcome_mean = r(mean)
 eststo iv`var'
 }
 
-estout $outcomes_iv_w_index   using "${tables}table8d.tex", ///
+estout $outcomes_iv_w_index   using "${tables}table8D.tex", ///
 			replace style(tex) collabels(, none) label varlabels(frac_f "Fraction of female leaders") cells(b(star fmt(%9.3f)) se(par))  ///
 			keep(frac_f) mlabels(, none) stats(N outcome_mean, fmt(%9.0gc %9.3fc) ///
 			labels("\hspace{0.5 cm} Observations" "\hspace{0.5 cm} Outcome mean") ///
 			layout(@ @)) $slvl
 
   eststo clear
+
   
+***Comparison of coefficients***
+
+foreach group in 1 2 3 4 {
+use "${intermediate}for_analysis_men_3.dta", clear
+
+if `group' == 1{
+	keep if age <= 30
+	gen group = married
+}
+
+if `group' == 2 {
+	keep if age > 30
+	gen group = married
+}
+
+if `group' == 3 {
+	keep if married == 0
+	gen group = age <= 30
+}
+
+if `group' == 4 {
+	keep if married == 1
+	gen group = age <= 30
+}
+
+gen cons = 1
+
+foreach var in $outcomes_w_index {
+ivreg2 `var' (c.frac_f#i.group = c.frac_close_winf#i.group) c.cons#i.group ///
+c.frac_close#i.group $margin2_interact $individual_controls_interact i.state_*#i.group  $dist_controls_interact, nocons $se
+test 1.group#c.frac_f = 0.group#c.frac_f
+mat ec`group'_`var'=(.)
+			mat ec`group'_`var'[1,1]=r(p)
+}
+}
+		
+		
+		matrix eqcoeff=(ec1_male_decision_z) , (ec1_fertility_decisions) ,  (ec1_largehousehold_decisions) , (ec1_wifesincome_decisions) , (ec1_dailyhousehold_decisions)  , (ec1_visitrelative_decisions) \ (ec2_male_decision_z) , (ec2_fertility_decisions) ,  (ec2_largehousehold_decisions) , (ec2_wifesincome_decisions) , (ec2_dailyhousehold_decisions)  , (ec2_visitrelative_decisions) \ (ec3_male_decision_z) , (ec3_fertility_decisions) ,  (ec3_largehousehold_decisions) , (ec3_wifesincome_decisions) , (ec3_dailyhousehold_decisions)  , (ec3_visitrelative_decisions) \ (ec4_male_decision_z) , (ec4_fertility_decisions) ,  (ec4_largehousehold_decisions) , (ec4_wifesincome_decisions) , (ec4_dailyhousehold_decisions)  , (ec4_visitrelative_decisions)
+mat rownames eqcoeff = "" "" //titles will be added in overleaf
+estout matrix(eqcoeff, fmt(%9.3f)) using "${tables}table8E.tex", replace title("") style(tex) ///
+	collabels(, none) mlabels(, none) nolabel ///
+
+
+estimates clear
 
 *********************************************************************************
 ***TABLE A1: Summary Statistics***
