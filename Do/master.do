@@ -8,10 +8,11 @@ global tables "${repo}Outputs\Tables\\"
 global figures "${repo}Outputs\Figures\\"
 global ado	   "${repo}Ado\\"
 
-cd "${intermediate}"
+*create intermediate data file if it does not exist
+mata: st_numscalar("exists", direxists("${intermediate}"))
+if scalar(exists) == 0 mkdir "${intermediate}"
 
-*install outreg2 package
-ssc install outreg2
+cd "${intermediate}"
 
 *create switches
 
