@@ -14,8 +14,7 @@ if scalar(exists) == 0 mkdir "${intermediate}"
 
 cd "${intermediate}"
 
-*create switches
-
+***Create switches***
 local makefile				1
 local clean_elections		1
 local clean_census			1
