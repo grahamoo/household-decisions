@@ -1,4 +1,16 @@
-Data/Raw/DHS/Mens DHS/
-Data/Raw/DHS/Womens DHS/
+Data/Raw/DHS/Mens DHS/*.DOC
+Data/Raw/DHS/Mens DHS/*.DCT
+Data/Raw/DHS/Mens DHS/*.DO
+Data/Raw/DHS/Mens DHS/*.DTA
+Data/Raw/DHS/Mens DHS/*.FRQ
+Data/Raw/DHS/Mens DHS/*.FRW
+Data/Raw/DHS/Mens DHS/*.MAP
+Data/Raw/DHS/Womens DHS/*.DOC
+Data/Raw/DHS/Womens DHS/*.DCT
+Data/Raw/DHS/Womens DHS/*.DO
+Data/Raw/DHS/Womens DHS/*.DTA
+Data/Raw/DHS/Womens DHS/*.FRQ
+Data/Raw/DHS/Womens DHS/*.FRW
+Data/Raw/DHS/Womens DHS/*.MAP
 Data/Intermediate
 *.stswp
