@@ -6,7 +6,7 @@ This GitHub repository creates the tables and graphs used in my writing sample f
 - **DHS:** I do not have the rights to publicly share the 2015-2016 NFHS-4 India DHS survey data, but it can be requested from the DHS website at the following link: https://dhsprogram.com/data/dataset/India_Standard-DHS_2015.cfm?flag=0
 The women's survey data is under "Individual Recode" and the men's survey data is under "Men's recode". The downloaded women's data should be [saved here](https://github.com/grahamoo/household-decisions/tree/main/Data/Raw/DHS/Womens%20DHS) and the downloaded men's data should be [saved here](https://github.com/grahamoo/household-decisions/tree/main/Data/Raw/DHS/Mens%20DHS).
 	
-- **ECI election data:** 
+- **ECI election data:** raw state election files in the raw [ECI data folder](https://github.com/grahamoo/household-decisions/tree/main/Data/Raw/ECI) are downloaded through the [ECI website](https://www.eci.gov.in/statistical-reports).
 
 - **2011 Census of India:** The Census data used in this paper is downloaded from the following link and is under the title "PCA-TOT: Primary Census Abstract Total": https://censusindia.gov.in/census.website/data/census-tables
 
