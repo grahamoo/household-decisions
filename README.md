@@ -11,4 +11,5 @@ ECI election data:
 2011 Census of India: The Census data used in this paper is downloaded from the following link and is under the title "PCA-TOT: Primary Census Abstract Total": https://censusindia.gov.in/census.website/data/census-tables
 
 **Do-files:** 
+
 The full pipeline of do-files can be run from _master.do_. The globals of directories at the top of _master.do_ need to be customized to the paths of the do-files and data on your personal device. 
