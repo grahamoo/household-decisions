@@ -3,8 +3,8 @@ This GitHub repository creates the tables and graphs used in my writing sample f
 
 **Data:**
 
-DHS: I do not have the rights to publicly share the 2015-2016 NFHS-4 India DHS survey data but it can be requested from the DHS website at the following link: https://dhsprogram.com/data/dataset/India_Standard-DHS_2015.cfm?flag=0
-The women's survey data is under "Individual Recode" and the men's survey data is under "Men's recode".
+DHS: I do not have the rights to publicly share the 2015-2016 NFHS-4 India DHS survey data, but it can be requested from the DHS website at the following link: https://dhsprogram.com/data/dataset/India_Standard-DHS_2015.cfm?flag=0
+The women's survey data is under "Individual Recode" and the men's survey data is under "Men's recode". The downloaded women's data should be [saved here](https://github.com/grahamoo/household-decisions/tree/main/Data/Raw/DHS/Womens%20DHS) and the downloaded men's data should be [saved here](https://github.com/grahamoo/household-decisions/tree/main/Data/Raw/DHS/Mens%20DHS).
 	
 ECI election data: 
 
