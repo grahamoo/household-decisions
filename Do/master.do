@@ -1,10 +1,12 @@
 
 ***Define globals***
-global raw "C:\Users\17819\Dropbox\capstone\household-decisions\Data\Raw\\"
-global intermediate "C:\Users\17819\Dropbox\capstone\household-decisions\Data\Intermediate\\"
-global dofiles "C:\Users\17819\Dropbox\capstone\household-decisions\Do\"
-global tables "C:\Users\17819\Dropbox\capstone\household-decisions\Outputs\Tables\\"
-global figures "C:\Users\17819\Dropbox\capstone\household-decisions\Outputs\Figures\\"
+global repo "C:\Users\17819\Dropbox\capstone\household-decisions\\"
+global raw "${repo}Data\Raw\\"
+global intermediate "${repo}Data\Intermediate\\"
+global dofiles "${repo}Do\"
+global tables "${repo}Outputs\Tables\\"
+global figures "${repo}Outputs\Figures\\"
+global ado	   "${repo}Ado\\"
 
 cd "${intermediate}"
 
@@ -13,6 +15,7 @@ ssc install outreg2
 
 *create switches
 
+local makefile				1
 local clean_elections		1
 local clean_census			1
 local clean_dhs				1
@@ -20,6 +23,13 @@ local merge					1
 local tables				1
 local figures				1
 
+********************************************************************************
+***Install ado files***
+
+if `makefile' == 1 {
+	
+	do "${dofiles}makefile.do"
+}
 ********************************************************************************
 ***Clean election data***
 /*Note: Imports ECI state election data for 2010-2014 state elections.
