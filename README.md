@@ -8,7 +8,7 @@ The women's survey data is under "Individual Recode" and the men's survey data i
 	
 - **ECI election data:** raw state election files in the raw [ECI data folder](https://github.com/grahamoo/household-decisions/tree/main/Data/Raw/ECI) are downloaded through the [ECI website](https://www.eci.gov.in/statistical-reports).
 
-- **2011 Census of India:** Raw Census data in the raw [Census data folder](https://github.com/grahamoo/household-decisions/tree/main/Data/Raw/Census) is downloaded from the [Indian Census website](https://censusindia.gov.in/census.website/data/census-tables) and is under the title "PCA-TOT: Primary Census Abstract Total".
+- **2011 Census of India:** The raw Census data file in the raw [Census data folder](https://github.com/grahamoo/household-decisions/tree/main/Data/Raw/Census) is downloaded from the [Indian Census website](https://censusindia.gov.in/census.website/data/census-tables) and is under the title "PCA-TOT: Primary Census Abstract Total".
 
 ### Do-files:
 
