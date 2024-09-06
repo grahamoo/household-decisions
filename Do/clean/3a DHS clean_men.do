@@ -31,12 +31,15 @@ la var semi_literate "respondent is able to read only parts of sentence"
 
 assert !mi(mv157) & !mi(mv158) & !mi(mv159)
 gen daily_media = mv157 == 3 | mv158 == 3 | mv159 == 3
-la var daily_media "respondent reads newspaper, watches tv, or listents to radion daily"
+la var daily_media "respondent reads newspaper, watches tv, or listents to radion daily" 
 
 rename mv012 age
 la var age "respondent's age in years"
 rename mv133 years_educ
 la var years_educ "respodent's years of education"
+
+gen schooling_age = age <= 21 //Note: minimum age is 15
+la var schooling_age "Respondent is schooling age"
 
 assert !mi(mv501)
 gen married = (mv501 == 1)

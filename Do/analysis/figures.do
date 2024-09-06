@@ -215,3 +215,31 @@ graph export "${figures}figureA2.pdf", replace
 
 *source for graph format: https://stats.oarc.ucla.edu/stata/faq/how-can-i-make-a-bar-graph-with-error-bars/
 
+********************************************************************************
+***Figure A3: Schooling age***
+use "${intermediate}for_analysis_men_3.dta", clear
+
+keep if male_decision_z!=.
+
+*generate a variable for subsamples
+gen subsample = 0 if married == 0 & age <= 30
+replace subsample = 1 if married == 1 & age <= 30
+replace subsample = 2 if married == 0 & age > 30
+replace subsample = 3 if married == 1 & age > 30
+
+*collapse daily media consumption rate by subsample
+collapse (mean) mean_v= schooling_age (sd) sd_v=schooling_age (count) n=schooling_age, by(subsample)
+
+*generate standard deviation tails
+generate hi = mean_v + invttail(n-1,0.025)*(sd_v/ sqrt(n))
+generate low = mean_v - invttail(n-1,0.025)*(sd_v / sqrt(n))
+
+*output figure
+graph set window fontface "Georgia"
+set scheme s1mono
+
+twoway (bar mean_v subsample, legend(off) ytitle("Fraction that is at schooling age (15-21)") xtitle("") xlabel(0 "Unmarried & Age {&le} 30" 1 "Married & Age {&le} 30" 2 "Unmarried & Age {&gt} 30" 3 "Married & Age {&gt} 30", labsize(small))) (rcap hi low subsample)
+graph export "${figures}figureA3.pdf", replace
+
+*source for graph format: https://stats.oarc.ucla.edu/stata/faq/how-can-i-make-a-bar-graph-with-error-bars/
+
